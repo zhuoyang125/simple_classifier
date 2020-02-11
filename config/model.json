@@ -1,0 +1,21 @@
+{
+    "0":
+        {
+            "name":"SimpleNet",
+            "input_shape":[32,32,3],
+            "momentum":0.95,
+            "dropout_rate":0.2,
+            "filter_dims":[64,128,128,128],
+            "num_class":10
+        },
+
+    "1":
+        {
+            "name":"NotSimpleNet",
+            "input_shape":[32,32,3],
+            "momentum":0.95,
+            "dropout_rate":0.2,
+            "filter_dims":[64,128,128,128]
+        }
+
+}

@@ -17,3 +17,9 @@ def evaluate_model(X_test, Y_test, model):
     from sklearn.metrics import confusion_matrix
     cm = confusion_matrix(label, pred)
     return cm
+
+
+if __name__ == "__main__":
+    # TODO Take in a model_path and run some evaluation
+    
+    pass
