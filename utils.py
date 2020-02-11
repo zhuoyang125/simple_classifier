@@ -1,7 +1,7 @@
 from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.utils import to_categorical
 
-def get_data():
+def get_cifar10():
     """
     Data returning function 
     returns:
@@ -17,3 +17,7 @@ def get_data():
     Y_train = to_categorical(Y_train_orig, 10)
     Y_test = to_categorical(Y_test_orig, 10)
     return X_train, Y_train, X_test, Y_test
+
+def get_mnist():
+    # TODO
+    pass

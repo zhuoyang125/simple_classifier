@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 """CIFAR-10 SimpleNet Hyperas Parameter Optimization.ipynb
 

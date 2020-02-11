@@ -13,7 +13,7 @@ Original file is located at
   year={2016}
 }
 """
-
+import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,90 +26,51 @@ from tensorflow import keras
 
 
 
-def get_CNN():
-    inputs = keras.Input(shape=(32,32,3))
-    #1st layer
-    x = layers.Conv2D(64,3,padding='same',kernel_initializer='he_uniform')(inputs)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
+def get_SimpleNet(config):
+    
+    
+    name = config['name']
+    input_shape = config['input_shape']
+    momentum = config['momentum']
+    dropout_rate = config['dropout_rate']
+    filter_dims = config['filter_dims']
+    num_class = config['num_class']
+    
+    inputs = keras.Input(shape=(input_shape))
+    
+    for i, dims in enumerate(filter_dims):
+        if i == 0:
+            x = layers.Conv2D(dims,3,padding='same',kernel_initializer='he_uniform')(inputs)
+            x = layers.BatchNormalization(axis=-1, momentum=momentum)(x)
+            x = layers.Activation('relu')(x)
+            x = layers.Dropout(dropout_rate)(x)
+        else:
+            x = layers.Conv2D(dims,3,padding='same',kernel_initializer='he_uniform')(x)
+            x = layers.BatchNormalization(axis=-1, momentum=momentum)(x)
+            x = layers.Activation('relu')(x)
+            x = layers.Dropout(dropout_rate)(x)
 
-    #2nd, 3rd, 4th layer w non-overlapping maxpooling
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.095)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
+            x = layers.Conv2D(dims,3,padding='same',kernel_initializer='he_uniform')(x)
+            x = layers.BatchNormalization(axis=-1, momentum=momentum)(x)
+            x = layers.Activation('relu')(x)
+            x = layers.Dropout(dropout_rate)(x)
 
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
+            x = layers.Conv2D(dims,3,padding='same',kernel_initializer='he_uniform')(x)
+            x = layers.BatchNormalization(axis=-1, momentum=momentum)(x)
+            x = layers.Activation('relu')(x)
 
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-
-    x = layers.MaxPooling2D(pool_size=2,strides=2)(x)
-
-    #5th, 6th layer
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    #7th layer w non-overlapping maxpooling
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.MaxPooling2D(pool_size=2,strides=2)(x)
-
-    #8th, 9th layer w non-overlapping maxpooling
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.MaxPooling2D(pool_size=2,strides=2)(x)
-
-    #10th, 11th, 12th layer w non-overlapping maxpooling
-    x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.Conv2D(128,1,kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.Conv2D(128,1,kernel_initializer='he_uniform')(x)
-    x = layers.BatchNormalization(axis=-1, momentum=0.95)(x)
-    x = layers.Activation('relu')(x)
-    x = layers.Dropout(0.2)(x)
-
-    x = layers.MaxPooling2D(pool_size=2,strides=2)(x)
-
+            x = layers.MaxPooling2D(pool_size=2,strides=2)(x)
+    
+    
     #13th layer
     x = layers.Conv2D(128,3,padding='same',kernel_initializer='he_uniform')(x)
 
     #flatten
     x = layers.Flatten()(x)
 
-    outputs = layers.Dense(10, activation='softmax')(x)
+    outputs = layers.Dense(num_class, activation='softmax')(x)
 
-    model = keras.Model(inputs=inputs,outputs=outputs,name='simplenet')
+    model = keras.Model(inputs=inputs,outputs=outputs,name=name)
 
     
     model.compile(loss='categorical_crossentropy',
@@ -119,3 +80,9 @@ def get_CNN():
 
 
 
+if __name__ == "__main__":
+    with open('config/model.json') as f:
+        model_config = json.load(f)
+
+    
+    model = get_SimpleNet(model_config['0'])
