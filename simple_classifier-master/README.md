@@ -4,7 +4,7 @@ This repo would allow you to train a image classifier using Tensorflow Keras. Th
 ## Setup
 
 ## How to train
-Go to `config` to adjust your training parameters. Choice of MNIST or CIFAR10 dataset for training, and choice of data augmentation. To train custom dataset, include 'data' folder with directory structure:
+Go to `config` to adjust your training parameters. Choice of MNIST or CIFAR10 dataset for training, and choice of data augmentation. Use help function to view arg options. To train custom dataset, include 'data' folder with directory structure:
 ```
 data/
 	train/
