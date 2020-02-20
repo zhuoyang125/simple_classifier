@@ -40,7 +40,7 @@ Load saved model by specifying model path in argument. Also allows loading of cu
 ### Arguments
 -w, --model_path: directory to model file (.hdf5) \
 -d, --data_path: directory to data folder \
--a, --data_aug: where to initialize data augmentation\
+-a, --data_aug: where to initialize data augmentation 
 
 Command
 ```bash
