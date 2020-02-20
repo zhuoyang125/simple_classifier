@@ -1,5 +1,5 @@
 # SimpleNet Classifier
-This repo would allow you to train a image classifier using Tensorflow Keras. The model architecture is based of SimpleNet. https://arxiv.org/abs/1608.06037
+This repo would allow you to train an image classifier with Tensorflow Keras. The model architecture is based of SimpleNet. https://arxiv.org/abs/1608.06037
 
 ## Setup
 
