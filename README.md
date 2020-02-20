@@ -31,7 +31,7 @@ python training.py
 ```
 
 ## Evaluation
-Load saved model by specifying model path in argument. Also allows loading of custom dataset and data augmentation.
+Load saved model by specifying model path in argument. Also allows loading of custom dataset and data augmentation. Classification report and confusion matrix is saved in `results` folder, and models are saved in `saved_models` folder
 ```bash
 python evaluation.py
 ```
