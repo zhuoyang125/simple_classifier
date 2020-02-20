@@ -17,12 +17,12 @@ import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-
+from keras.callbacks import ModelCheckpoint
 import tensorflow as tf
-
 from tensorflow.keras import layers
 from tensorflow.keras.layers import Input, Add, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, AveragePooling2D, MaxPooling2D
 from tensorflow import keras
+
 
 
 
@@ -78,11 +78,9 @@ def get_SimpleNet(config):
                 metrics=['accuracy'])
     return model
 
+    
+   
+    
 
-
-if __name__ == "__main__":
-    with open('config/model.json') as f:
-        model_config = json.load(f)
 
     
-    model = get_SimpleNet(model_config['0'])
