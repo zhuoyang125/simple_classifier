@@ -1,6 +1,0 @@
-{
-    "train_batch_size": 64,
-    "test_batch_size":32,
-    "epochs":5,
-    "train_validation_split":0.2
-}
