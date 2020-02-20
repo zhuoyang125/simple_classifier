@@ -39,7 +39,7 @@ if args.data_aug:
                             height_shift_range=0.2,
                             rotation_range=20)
     datagen.fit(X_train)
-    checkpointer = ModelCheckpoint(filepath='weights/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
+    checkpointer = ModelCheckpoint(filepath='saved_models/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
                                     monitor='val_loss', 
                                     verbose=1, 
                                     save_best_only=False,
@@ -55,7 +55,7 @@ if args.data_aug:
     evaluate_model(X_test,Y_test,model,train_config)
 
 else:
-    checkpointer = ModelCheckpoint(filepath='weights/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5', 
+    checkpointer = ModelCheckpoint(filepath='saved_models/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5', 
                                     monitor='val_loss', 
                                     verbose=1, 
                                     save_best_only=False,

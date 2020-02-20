@@ -84,7 +84,7 @@ if __name__ == "__main__":
                                 height_shift_range=0.2,
                                 rotation_range=20)
         datagen.fit(X_train)
-        checkpointer = ModelCheckpoint(filepath='weights/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
+        checkpointer = ModelCheckpoint(filepath='saved_models/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
                                     monitor='val_loss', 
                                     verbose=1, 
                                     save_best_only=False,
@@ -100,7 +100,7 @@ if __name__ == "__main__":
         evaluate_model(X_test,Y_test,model,train_config)
     
     elif args.data_path:
-        checkpointer = ModelCheckpoint(filepath='weights/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
+        checkpointer = ModelCheckpoint(filepath='saved_models/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
                                     monitor='val_loss', 
                                     verbose=1, 
                                     save_best_only=False,
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
 
     else:
-        checkpointer = ModelCheckpoint(filepath='weights/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
+        checkpointer = ModelCheckpoint(filepath='saved_models/' + model.name + '-{epoch:02d}-{val_loss:.2f}.hdf5',
                                     monitor='val_loss', 
                                     verbose=1, 
                                     save_best_only=False,
