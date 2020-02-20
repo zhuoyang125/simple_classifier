@@ -119,23 +119,7 @@ RUN pip install --no-cache-dir python-dateutil==2.7.2 && \
     pip install --no-cache-dir scikit-learn==0.19.1 && \
     pip install --no-cache-dir keras
 
-    # Numpy-base 1.14.3
-#RUN sudo wget https://repo.continuum.io/pkgs/main/linux-64/numpy-base-1.14.3-py36h9be14a7_1.tar.bz2 && \
-    #sudo tar -xjf numpy-base-1.14.3-py36h9be14a7_1.tar.bz2 -C /usr/bin && \
-    #sudo rm numpy-base-1.14.3-py36h9be14a7_1.tar.bz2
-
-    # Hdf5 1.8.18
-#RUN sudo wget https://repo.continuum.io/pkgs/main/linux-64/hdf5-1.8.18-h6792536_1.tar.bz2 && \
-    #sudo tar -xjf hdf5-1.8.18-h6792536_1.tar.bz2 -C /usr/bin && \
-    #sudo rm hdf5-1.8.18-h6792536_1.tar.bz2
-
-    # Caffe2 Cuda 8.0 Cudnn7 0.8
-#RUN sudo wget https://conda.anaconda.org/caffe2/linux-64/caffe2-cuda8.0-cudnn7-0.8.dev-py36_2018.05.14.tar.bz2 && \
-#    sudo tar -xjf caffe2-cuda8.0-cudnn7-0.8.dev-py36_2018.05.14.tar.bz2 -C /usr/bin && \
-#    sudo rm caffe2-cuda8.0-cudnn7-0.8.dev-py36_2018.05.14.tar.bz2
-
 # Clone image classifier from GitHub
-#RUN pip install --user 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
 
 RUN sudo git clone https://github.com/zhuoyang125/simple_classifier.git /home/root/simple_classifier
 
