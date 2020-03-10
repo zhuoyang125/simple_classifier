@@ -1,49 +1,50 @@
-# SimpleNet Classifier
-This repo would allow you to train an image classifier with Tensorflow Keras. The model architecture is based of SimpleNet. https://arxiv.org/abs/1608.06037
+# Contributing to CV AppStore Model Card (Classification)
+## Requirements
+You would need to package your model, source codes and weights, into a docker container, and expose a POST endpoint `/predict`<br>
 
-## Setup
-
-## How to train
-Go to `config` to adjust your training parameters. Choice of MNIST or CIFAR10 dataset for training, and choice of data augmentation. Use help function to view arg options. To train custom dataset, include 'data' folder with directory structure:
+Your `/predict` endpoint should include the neccessary pre-processing of the image and output the prediction in a json manner. Example:
 ```
-data/
-	train/
-		class_a/
-			class_a01.jpg
-			class_a02.jpg
-			...
-		class_b/
-			class_b01.jpg
-			class_b02.jpg
-			...
-	test/
-		class_a/
-			class_a01.jpg
-			class_a02.jpg
-			...
-		class_b/
-			class_b01.jpg
-			class_b02.jpg
+{
+    "success": true,
+    "prediction": "dogs"
+}
 ```
-### Arguments
--a, --data_aug: whether to initialize data augmentation \
--s, --dataset: choose 'mnist' or 'cifar10'\
+### Tutorials
+- [Docker tutorial](https://towardsdatascience.com/docker-made-easy-for-data-scientists-b32efbc23165)
+- [Flask tutorial](https://towardsdatascience.com/how-to-easily-deploy-machine-learning-models-using-flask-b95af8fe34d4)
 
+## Example
+In this template, we would be showing how to do the above with a model trained using the [cifar-10 dataset](https://en.wikipedia.org/wiki/CIFAR-10). Say we have trained a [Simplenet](https://arxiv.org/abs/1608.06037) and want to contribute this model to CV AppStore. 
 
-Command
-```bash
-python training.py
+Lets begin by git clon-ing this project
 ```
-
-## Evaluation
-Load saved model by specifying model path in argument. Also allows loading of custom dataset and data augmentation. Classification report and confusion matrix is saved in `results` folder, and models are saved in `saved_models` folder
-### Arguments
--w, --model_path: directory to model file (.hdf5) \
--d, --data_path: directory to data folder \
--a, --data_aug: where to initialize data augmentation 
-
-Command
-```bash
-python evaluation.py
+git clone
+```
+### Project Structure
+For this example, we structure the project as such.
+```
+.
+├── Dockerfile 
+├── README.md
+├── run_docker.sh # script to run docker container
+└── src
+    ├── app.py # flask server
+    ├── cifar10.json # cifar10 class dictionary
+    ├── classifier.py # classifier
+    └── SimpleNet-29-0.41.hdf5 # weights of the trained classifier
 ```
 
+You would need to change the weights and class dictionary to your model. Similarly, edit the `Dockerfile` to your model envrionment. 
+
+### Testing your flask server
+Once done, you can edit the `run_docker.sh` to call your docker image. You can use [Postman](https://www.postman.com/) to test your endpoints.
+
+![post_man example](pictures/postman_example.png)
+
+### Push to DockerHub
+Once done, upload your docker image to docker hub
+
+```
+docker login
+docker push docker_hub_user/imagename:tagname
+```
