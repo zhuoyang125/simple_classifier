@@ -18,7 +18,7 @@ In this template, we would be showing how to do the above with a model trained u
 
 Lets begin by git clon-ing this project
 ```
-git clone
+git clone https://github.com/zhuoyang125/simple_classifier.git -b cv_app_store
 ```
 ### Project Structure
 For this example, we structure the project as such.
